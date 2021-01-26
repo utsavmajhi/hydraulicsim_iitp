@@ -32,6 +32,7 @@ dependencies:
   flutter_svg: ^0.19.1
   introduction_screen: ^1.0.9
   google_fonts: ^1.1.0
+  rive: ^0.6.6+1
 
 dev_dependencies:
   flutter_test:
