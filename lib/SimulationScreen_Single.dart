@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hydraulicsim_iitp/Statistics.dart';
@@ -15,9 +17,14 @@ class Simulationsingleacting extends StatefulWidget  {
 }
 
 class _SimulationsingleactingState extends State<Simulationsingleacting> with TickerProviderStateMixin {
-  RiveAnimationController _controller;
-  Artboard _riveArtboard;
-
+  RiveAnimationController _controller_piston;
+  RiveAnimationController _controller_dcvalve;
+  RiveAnimationController _controller_reliefvalve;
+  RiveAnimationController _controller_pump;
+  Artboard _riveArtboard_piston;
+  Artboard _riveArtboard_dcvalve;
+  Artboard _riveArtboard_reliefvalve;
+  Artboard _riveArtboard_pump;
   String toggle_p="Forward";
   @override
   void initState() {
@@ -35,8 +42,56 @@ class _SimulationsingleactingState extends State<Simulationsingleacting> with Ti
           final artboard = file.mainArtboard;
           // Add a controller to play back a known animation on the main/default
           // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller = SimpleAnimation('idle'));
-          setState(() => _riveArtboard = artboard);
+          artboard.addController(_controller_piston = SimpleAnimation('idle'));
+          setState(() => _riveArtboard_piston = artboard);
+        }
+      },
+    );
+    rootBundle.load('ImageAssets/dc_valve_4_3.riv').then(
+          (data) async {
+        final file = RiveFile();
+
+        // Load the RiveFile from the binary data.
+        if (file.import(data)) {
+          // The artboard is the root of the animation and gets drawn in the
+          // Rive widget.
+          final artboard = file.mainArtboard;
+          // Add a controller to play back a known animation on the main/default
+          // artboard.We store a reference to it so we can toggle playback.
+          artboard.addController(_controller_dcvalve = SimpleAnimation('Neut-Fwd'));
+          setState(() => _riveArtboard_dcvalve = artboard);
+        }
+      },
+    );
+    rootBundle.load('ImageAssets/relief-valve.riv').then(
+          (data) async {
+        final file = RiveFile();
+
+        // Load the RiveFile from the binary data.
+        if (file.import(data)) {
+          // The artboard is the root of the animation and gets drawn in the
+          // Rive widget.
+          final artboard = file.mainArtboard;
+          // Add a controller to play back a known animation on the main/default
+          // artboard.We store a reference to it so we can toggle playback.
+          artboard.addController(_controller_reliefvalve = SimpleAnimation('idle'));
+          setState(() => _riveArtboard_reliefvalve = artboard);
+        }
+      },
+    );
+    rootBundle.load('ImageAssets/pump.riv').then(
+          (data) async {
+        final file = RiveFile();
+
+        // Load the RiveFile from the binary data.
+        if (file.import(data)) {
+          // The artboard is the root of the animation and gets drawn in the
+          // Rive widget.
+          final artboard = file.mainArtboard;
+          // Add a controller to play back a known animation on the main/default
+          // artboard.We store a reference to it so we can toggle playback.
+          artboard.addController(_controller_pump = SimpleAnimation('Running'));
+          setState(() => _riveArtboard_pump = artboard);
         }
       },
     );
@@ -55,6 +110,16 @@ class _SimulationsingleactingState extends State<Simulationsingleacting> with Ti
             ),
           ),
           Positioned(
+            top: 158,
+            left: 66,
+            child: Container(
+              color: Colors.transparent,
+              height: 170,
+              width: 230,
+              child: dcvalve4_3(6),
+            ),
+          ),
+          Positioned(
               top: 106,
               left:118,
               child: Image.asset('ImageAssets/leftlineneu.png')),
@@ -70,16 +135,24 @@ class _SimulationsingleactingState extends State<Simulationsingleacting> with Ti
               top: 250,
               left:165,
               child: Image.asset('ImageAssets/tank.png')),
-          Padding(
-            padding: const EdgeInsets.only(left:10.0,top: 328),
+          Positioned(
+            top: 408,
+            left: 280,
             child: Container(
                 height: 180,
-                child: Image.asset('ImageAssets/reliefvalve.png')),
+                width: 100,
+                child: reliefvalve(3)),
           ),
+          Positioned(child: SizedBox(
+            height:750,
+          )),
           Positioned(
-              left: 138,
-              top: 430,
-              child: Image.asset('ImageAssets/pumpmotr.png')),
+              left: 0,
+              top: 460,
+              child: Container(
+                  height: 90,
+                  width: 200,
+                  child: pump(1))),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -90,25 +163,87 @@ class _SimulationsingleactingState extends State<Simulationsingleacting> with Ti
             }else{
               toggle_p="Forward";
             }
-
           });
         },
       ),
     );
   }
   Widget SingleActingPiston(state) {
-    if (_riveArtboard != null) {
+    if (_riveArtboard_piston != null) {
       switch (state) {
         case 1:
-          _riveArtboard.artboard..addController(SimpleAnimation('Forward'));
+          _riveArtboard_piston.artboard..addController(SimpleAnimation('Forward'));
           break;
         case 2:
-          _riveArtboard.artboard..addController(SimpleAnimation('Backward'));
+          _riveArtboard_piston.artboard..addController(SimpleAnimation('Backward'));
           break;
       }
       return Rive(
-        artboard: _riveArtboard,
+        artboard: _riveArtboard_piston,
         fit: BoxFit.cover,
+      );
+    } else {
+      return Container();
+    }
+  }
+  Widget dcvalve4_3(state) {
+    if (_riveArtboard_dcvalve != null) {
+      switch (state) {
+        case 1:
+          _riveArtboard_dcvalve.artboard..addController(SimpleAnimation('Neut-Fwd'));
+          break;
+        case 2:
+          _riveArtboard_dcvalve.artboard..addController(SimpleAnimation('Fwd-Neut'));
+          break;
+        case 3:
+          _riveArtboard_dcvalve.artboard..addController(SimpleAnimation('Bwd-Neut'));
+          break;
+        case 4:
+          _riveArtboard_dcvalve.artboard..addController(SimpleAnimation('Neut-Bwd'));
+          break;
+        default:
+          _riveArtboard_dcvalve.artboard..addController(SimpleAnimation('idle'));
+      }
+      return Rive(
+        artboard: _riveArtboard_dcvalve,
+        fit: BoxFit.contain,
+      );
+    } else {
+      return Container();
+    }
+  }
+  Widget reliefvalve(state) {
+    if (_riveArtboard_reliefvalve != null) {
+      switch (state) {
+        case 1:
+          _riveArtboard_reliefvalve.artboard..addController(SimpleAnimation('Open'));
+          break;
+        case 2:
+          _riveArtboard_reliefvalve.artboard..addController(SimpleAnimation('Close'));
+          break;
+        default:
+          _riveArtboard_reliefvalve.artboard..addController(SimpleAnimation('idle'));
+      }
+      return Rive(
+        artboard: _riveArtboard_reliefvalve,
+        fit: BoxFit.contain,
+      );
+    } else {
+      return Container();
+    }
+  }
+  Widget pump(state) {
+    if (_riveArtboard_pump != null) {
+      switch (state) {
+        case 1:
+          _riveArtboard_pump.artboard..addController(SimpleAnimation('Running'));
+          break;
+        default:
+          _riveArtboard_pump.artboard..addController(SimpleAnimation('Running'));
+      }
+      return Rive(
+        artboard: _riveArtboard_pump,
+        fit: BoxFit.contain,
       );
     } else {
       return Container();
