@@ -20,9 +20,8 @@ class Simulationsingleacting extends StatefulWidget  {
 class _SimulationsingleactingState extends State<Simulationsingleacting> with TickerProviderStateMixin {
 
   //Logic
-  int a = 4;
-  int b = 7;
-  int toggling_dcvalve=4;
+
+  int toggling_dcvalve=0;
   var logicList = List.generate(4, (i) => List(10), growable: false);
   RiveAnimationController _controller_piston;
   RiveAnimationController _controller_dcvalve;
@@ -329,6 +328,7 @@ class _SimulationsingleactingState extends State<Simulationsingleacting> with Ti
 
   @override
   Widget build(BuildContext context) {
+    Attributepasssc1 attributes=ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: Color(0xFFF3A3938),
       body: Stack(
@@ -400,7 +400,7 @@ class _SimulationsingleactingState extends State<Simulationsingleacting> with Ti
                     child: pipe4(LogicArr[toggling_dcvalve][3])),
               )),
           Positioned(child: SizedBox(
-            height:750,
+            height:900,
           )),
           Positioned(
               left: -19,
@@ -488,19 +488,28 @@ class _SimulationsingleactingState extends State<Simulationsingleacting> with Ti
               ),
             ),
           ),
+          Positioned(
+            top:690,
+            left:140,
+            child: Center(
+              child: RoundedButtonSmall(title:"Parameters",colour:Colors.blue,onPressed: (){
+                //GOTO Stats page
+                Navigator.pushNamed(context, Statistics.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
+              },),
+            ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          setState(() {
-            if(toggle_p=="Forward"){
-              toggle_p="Backward";
-            }else{
-              toggle_p="Forward";
-            }
-          });
-        },
+        backgroundColor: Colors.red,
+          child: Icon(Icons.arrow_back_ios),
+        onPressed: () {
+          Navigator.pop(context);
+        }
+
+
       ),
+
     );
   }
   Widget SingleActingPiston(state) {

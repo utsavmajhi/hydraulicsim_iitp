@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:hydraulicsim_iitp/SimulationScreen_Single.dart';
+
 import 'SimulationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -224,7 +226,7 @@ class _AttributeState extends State<Attribute> {
                     print(areapiston);
                     print(forceonpiston);
                     print(velopiston);
-                    Navigator.pushNamed(context, SimulationScreen.id,arguments: Attributepasssc1(rpm:rpm,powerrate: Powerating,displvol: dispvol,boredia:Boredia,stroke: stroke,pressureset: pressure,turningtorq:turningtorq,flowrate:flowrate,pressureout: pressureout,areapiston: areapiston,forceonpiston: forceonpiston,velopiston: velopiston));
+                    Navigator.pushNamed(context, Simulationsingleacting.id,arguments: Attributepasssc1(rpm:rpm,powerrate: Powerating,displvol: dispvol,boredia:Boredia,stroke: stroke,pressureset: pressure,turningtorq:turningtorq,flowrate:flowrate,pressureout: pressureout,areapiston: areapiston,forceonpiston: forceonpiston,velopiston: velopiston));
               },
               ),
             ],

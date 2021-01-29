@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
 
 class test1 extends StatefulWidget {
-  static String id='Attribute_Screen';
+  static String id='test_screen';
   @override
   _MyAppState createState() => _MyAppState();
 }
