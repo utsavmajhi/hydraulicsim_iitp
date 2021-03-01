@@ -4,6 +4,8 @@ import 'SimulationScreen.dart';
 import 'Statistics.dart';
 import 'test1.dart';
 import 'SimulationScreen_Single.dart';
+import 'SimulationScreen_test1.dart';
+import 'package:hydraulicsim_iitp/Graph_double_cylinder.dart';
 void main() {
   runApp(MyApp());
 }
@@ -13,13 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute:Attribute.id,
+      initialRoute:Graph_double_cylinder.id,
       routes:{
         SimulationScreen.id:(context)=>SimulationScreen(),
         Attribute.id:(context)=>Attribute(),
         Statistics.id:(context)=>Statistics(),
         test1.id:(context)=>test1(),
+        simulationscreentest1.id:(context)=>simulationscreentest1(),
         Simulationsingleacting.id:(context)=>Simulationsingleacting(),
+        Graph_double_cylinder.id:(context)=>Graph_double_cylinder(),
 
       },
     );

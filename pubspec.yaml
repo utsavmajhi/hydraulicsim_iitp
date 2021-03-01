@@ -33,6 +33,7 @@ dependencies:
   introduction_screen: ^1.0.9
   google_fonts: ^1.1.0
   rive: ^0.6.6+1
+  draw_graph: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +56,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - ImageAssets/
+    - Animations/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

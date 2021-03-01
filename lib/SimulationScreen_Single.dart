@@ -12,7 +12,6 @@ import 'package:rive/rive.dart';
 
 class Simulationsingleacting extends StatefulWidget  {
   static String id='Simulation_Screen_SingleActing';
-
   @override
   _SimulationsingleactingState createState() => _SimulationsingleactingState();
 }
