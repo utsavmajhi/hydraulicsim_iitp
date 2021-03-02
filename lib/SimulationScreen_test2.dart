@@ -10,16 +10,15 @@ import 'package:hydraulicsim_iitp/models/attributepasssc1.dart';
 import 'package:hydraulicsim_iitp/Attribute.dart';
 import 'package:rive/rive.dart';
 
-class simulationscreentest1 extends StatefulWidget {
-  static String id='Simulation_Screen_test1';
-
+class simulationScreen_test2 extends StatefulWidget {
+  static String id='Simulation_Screen_test2';
   @override
-  _simulationscreentest1State createState() => _simulationscreentest1State();
+  _simulationScreen_test2State createState() => _simulationScreen_test2State();
 }
 
-class _simulationscreentest1State extends State<simulationscreentest1> {
-  Artboard _riveArtboard_pipeframe,_riveArtboard_valve,_riveArtboard_dbpiston;
-  RiveAnimationController _controller_pipeframe,_controller_valve,_controller_dbpiston;
+class _simulationScreen_test2State extends State<simulationScreen_test2> {
+  Artboard _riveArtboard_pipeframe,_riveArtboard_valve,_riveArtboard_singlepiston;
+  RiveAnimationController _controller_pipeframe,_controller_valve,_controller_singlepiston;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   String piston_selection="";
   @override
@@ -30,7 +29,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
     rootBundle.load('Animations/double_acting_cylinderfinal.riv').then(
           (data) async {
         final file = RiveFile();
-        piston_selection="Double Acting Cylinder";
+        piston_selection="Single Acting Cylinder";
         // Load the RiveFile from the binary data.
         if (file.import(data)) {
           // The artboard is the root of the animation and gets drawn in the
@@ -38,12 +37,12 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
           final artboard = file.mainArtboard;
           // Add a controller to play back a known animation on the main/default
           // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller_dbpiston = SimpleAnimation('Static'));
-          setState(() => _riveArtboard_dbpiston = artboard);
+          artboard.addController(_controller_singlepiston = SimpleAnimation('Static'));
+          setState(() => _riveArtboard_singlepiston = artboard);
         }
       },
     );
-    rootBundle.load('Animations/double_acting_frame.riv').then(
+    rootBundle.load('Animations/single_acting_frame_final.riv').then(
           (data) async {
         final file = RiveFile();
 
@@ -59,7 +58,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
         }
       },
     );
-    rootBundle.load('Animations/4_2_dc_valve.riv').then(
+    rootBundle.load('Animations/3_2_dc_valve.riv').then(
           (data) async {
         final file = RiveFile();
 
@@ -75,7 +74,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
         }
       },
     );
-    rootBundle.load('Animations/double_acting_cylinder.riv').then(
+    rootBundle.load('Animations/single_acting_cylinder_final.riv').then(
           (data) async {
         final file = RiveFile();
 
@@ -86,8 +85,8 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
           final artboard = file.mainArtboard;
           // Add a controller to play back a known animation on the main/default
           // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller_dbpiston = SimpleAnimation('Static'));
-          setState(() =>_riveArtboard_dbpiston = artboard);
+          artboard.addController(_controller_singlepiston = SimpleAnimation('Static'));
+          setState(() =>_riveArtboard_singlepiston = artboard);
         }
       },
     );
@@ -104,7 +103,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
               children: [
                 Container(
                   height: 645,
-                    child: DoubleActingFrame(2),
+                  child: Singleactingframe(2),
                 ),
                 Positioned(
                   top: 180,
@@ -121,7 +120,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
                   child: Container(
                     height: 70,
                     width: 400,
-                    child: DBPiston(3),
+                    child: singlepiston(3),
                   ),
                 ),
                 Positioned(
@@ -130,7 +129,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
                   child: GestureDetector(
                     onTap: (){
                       showModalBottomSheet(
-                        backgroundColor: Colors.purple,
+                          backgroundColor: Colors.purple,
                           context: context,
                           isScrollControlled: true,
                           shape: RoundedRectangleBorder(
@@ -142,49 +141,49 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
                             return(
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text("Select the type of Piston",
-                                  style:TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white
-                                  )),
-                                ),
-                                DropdownButton<String>(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text("Select the type of Piston",
+                                          style:TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white
+                                          )),
+                                    ),
+                                    DropdownButton<String>(
 
-                                  value: piston_selection,
-                                  iconSize: 10,
-                                  elevation: 16,
-                                  style: TextStyle(color: Colors.deepPurple),
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      piston_selection=newValue;
-                                      Navigator.pop(context);
-                                    });
-                                  },
-                                  items: <String>['Double Acting Cylinder','Single Acting Cylinder']
-                                      .map<DropdownMenuItem<String>>((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value,
-                                        style: TextStyle(
-                                            color: Colors.black ,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600
-                                        ),),
-                                    );
-                                  }).toList(),
-                                ),
-                              ],
-                            ));
+                                      value: piston_selection,
+                                      iconSize: 10,
+                                      elevation: 16,
+                                      style: TextStyle(color: Colors.deepPurple),
+                                      onChanged: (String newValue) {
+                                        setState(() {
+                                          piston_selection=newValue;
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      items: <String>['Double Acting Cylinder','Single Acting Cylinder']
+                                          .map<DropdownMenuItem<String>>((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value,
+                                            style: TextStyle(
+                                                color: Colors.black ,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600
+                                            ),),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ],
+                                ));
 
-                      });
+                          });
                     },
                     child: Icon(Icons.arrow_drop_down_circle,
-                    color: Colors.white,
-                    size: 40,),
+                      color: Colors.white,
+                      size: 40,),
                   ),
                 )
 
@@ -221,7 +220,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
       ),
     );
   }
-  Widget DoubleActingFrame(state) {
+  Widget Singleactingframe(state) {
     if (_riveArtboard_pipeframe != null) {
       switch (state) {
         case 1:
@@ -266,26 +265,27 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
       return Container();
     }
   }
-  Widget DBPiston(state) {
-    if (_riveArtboard_dbpiston != null) {
+  Widget singlepiston(state) {
+
+    if (_riveArtboard_singlepiston != null) {
       switch (state) {
         case 1:
-          _riveArtboard_dbpiston.artboard..addController(SimpleAnimation('Backward-static'));
+          _riveArtboard_singlepiston.artboard..addController(SimpleAnimation('Backward-static'));
           break;
         case 2:
-          _riveArtboard_dbpiston.artboard..addController(SimpleAnimation('Forward-static'));
+          _riveArtboard_singlepiston.artboard..addController(SimpleAnimation('Forward-static'));
           break;
         case 3:
-          _riveArtboard_dbpiston.artboard..addController(SimpleAnimation('Forward'));
+          _riveArtboard_singlepiston.artboard..addController(SimpleAnimation('Forward'));
           break;
         case 4:
-          _riveArtboard_dbpiston.artboard..addController(SimpleAnimation('Backward'));
+          _riveArtboard_singlepiston.artboard..addController(SimpleAnimation('Backward'));
           break;
       }
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Rive(
-          artboard: _riveArtboard_dbpiston,
+          artboard: _riveArtboard_singlepiston,
           fit: BoxFit.cover,
         ),
       );
