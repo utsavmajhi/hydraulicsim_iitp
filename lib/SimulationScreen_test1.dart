@@ -9,6 +9,7 @@ import 'package:hydraulicsim_iitp/roundedbuttonsmall.dart';
 import 'package:hydraulicsim_iitp/models/attributepasssc1.dart';
 import 'package:hydraulicsim_iitp/Attribute.dart';
 import 'package:rive/rive.dart';
+import 'SimulationScreen_test2.dart';
 
 class simulationscreentest1 extends StatefulWidget {
   static String id='Simulation_Screen_test1';
@@ -22,6 +23,11 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
   RiveAnimationController _controller_pipeframe,_controller_valve,_controller_dbpiston;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   String piston_selection="";
+  int state_dcvalve=0;
+  List<List<int>> LogicArr = [
+    [3,2,115,1],
+    [4,1,183,2],
+  ];
   @override
   void initState() {
 
@@ -104,15 +110,37 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
               children: [
                 Container(
                   height: 645,
-                    child: DoubleActingFrame(2),
+                    child: DoubleActingFrame(LogicArr[state_dcvalve][3]),
                 ),
                 Positioned(
                   top: 180,
-                  left:183,
+                  left:LogicArr[state_dcvalve][2].toDouble(),
                   child: Container(
                     height: 79,
                     width: 200,
-                    child: Valve(2),
+                    child: Stack(children: [
+                      Valve(LogicArr[state_dcvalve][1]),
+                      Positioned(
+                        bottom:10,
+                        left: 9,
+                        child: GestureDetector(
+                          onTap: (){
+                            print("change");
+                            setState(() {
+                              if(state_dcvalve==0){
+                                state_dcvalve=1;
+                              }else{
+                                state_dcvalve=0;
+                              }
+                            });
+                          },
+                          child: CircleAvatar(
+                            radius: 15,
+                            backgroundColor: Colors.transparent,
+                          ),
+                        ),
+                      )
+                    ],),
                   ),
                 ),
                 Positioned(
@@ -121,7 +149,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
                   child: Container(
                     height: 70,
                     width: 400,
-                    child: DBPiston(3),
+                    child: DBPiston(LogicArr[state_dcvalve][0]),
                   ),
                 ),
                 Positioned(
@@ -161,7 +189,16 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
                                   onChanged: (String newValue) {
                                     setState(() {
                                       piston_selection=newValue;
-                                      Navigator.pop(context);
+                                      if(piston_selection=="Single Acting Cylinder"){
+                                        setState(() {
+                                          Navigator.pushReplacementNamed(context, simulationScreen_test2.id);
+                                        });
+
+                                      }
+                                      else{
+                                        Navigator.pop(context);
+                                      }
+
                                     });
                                   },
                                   items: <String>['Double Acting Cylinder','Single Acting Cylinder']

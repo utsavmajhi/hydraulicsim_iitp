@@ -22,7 +22,7 @@ class _Graph_double_cylinderState extends State<Graph_double_cylinder> {
     Feature(
       title: "Piston Speed",
       color: Colors.blue,
-      data: [0.2, 0.345, 0.466, 0.777, 0.8],
+      data: [0.2, 0.345, 0.466, 0.777, 0.1],
     ),
 
   ];

@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute:simulationScreen_test2.id,
+      initialRoute:simulationscreentest1.id,
       routes:{
         SimulationScreen.id:(context)=>SimulationScreen(),
         Attribute.id:(context)=>Attribute(),
