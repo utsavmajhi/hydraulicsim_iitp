@@ -10,6 +10,8 @@ import 'package:hydraulicsim_iitp/models/attributepasssc1.dart';
 import 'package:hydraulicsim_iitp/Attribute.dart';
 import 'package:rive/rive.dart';
 import 'SimulationScreen_test1.dart';
+import 'Attribute.dart';
+import 'package:hydraulicsim_iitp/Graph_double_cylinder.dart';
 
 class simulationScreen_test2 extends StatefulWidget {
   static String id='Simulation_Screen_test2';
@@ -99,6 +101,7 @@ class _simulationScreen_test2State extends State<simulationScreen_test2> {
   }
   @override
   Widget build(BuildContext context) {
+    Attributepasssc1 attributes=ModalRoute.of(context).settings.arguments;
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.black45,
@@ -182,7 +185,6 @@ class _simulationScreen_test2State extends State<simulationScreen_test2> {
                                           )),
                                     ),
                                     DropdownButton<String>(
-
                                       value: piston_selection,
                                       iconSize: 10,
                                       elevation: 16,
@@ -192,7 +194,7 @@ class _simulationScreen_test2State extends State<simulationScreen_test2> {
                                           piston_selection=newValue;
                                           if(piston_selection=="Double Acting Cylinder"){
                                             setState(() {
-                                              Navigator.pushReplacementNamed(context, simulationscreentest1.id);
+                                              Navigator.pushNamed(context, simulationscreentest1.id,arguments: Attributepasssc1(rpm:attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia:attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq:attributes.turningtorq,flowrate:attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
                                             });
 
                                           }
@@ -235,14 +237,14 @@ class _simulationScreen_test2State extends State<simulationScreen_test2> {
                   padding: const EdgeInsets.symmetric(horizontal:18.0),
                   child: RoundedButtonSmall(title:"Parameters",colour:Colors.blue,onPressed: (){
                     //GOTO Stats page
-                    //Navigator.pushNamed(context, Statistics.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
+                    Navigator.pushNamed(context, Statistics.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
                   },),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal:18.0),
                   child: RoundedButtonSmall(title:"Graphs",colour:Colors.blue,onPressed: (){
                     //GOTO Stats page
-                    //Navigator.pushNamed(context, Statistics.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
+                    Navigator.pushNamed(context, Graph_double_cylinder.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
                   },),
                 ),
               ],
@@ -251,7 +253,7 @@ class _simulationScreen_test2State extends State<simulationScreen_test2> {
               padding: const EdgeInsets.symmetric(horizontal:18.0),
               child: RoundedButtonSmall(title:"Change Values",colour:Colors.red,onPressed: (){
                 //GOTO Stats page
-                //Navigator.pushNamed(context, Statistics.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
+                Navigator.pushNamed(context, Attribute.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
               },),
             ),
           ],
