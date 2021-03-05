@@ -254,13 +254,13 @@ class _Graph_double_cylinderState extends State<Graph_double_cylinder> {
       lineBarsData: [
         LineChartBarData(
           spots: [
-            FlSpot(0, 3.44),
-            FlSpot(2.6, 3.44),
-            FlSpot(4.9, 3.44),
-            FlSpot(6.8, 3.44),
-            FlSpot(8, 3.44),
-            FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
+            FlSpot(0, 2.44),
+            FlSpot(2.6, 2.44),
+            FlSpot(4.9, 2.44),
+            FlSpot(6.8, 2.44),
+            FlSpot(8, 2.44),
+            FlSpot(9.5, 2.44),
+            FlSpot(11, 2.44),
           ],
           isCurved: true,
           colors: [
