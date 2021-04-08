@@ -24,5 +24,15 @@ class Attributepassc2{
       this.flowrate,
       this.pressureout,
       this.areapiston,
-      this.forceonpiston});
+      this.forceonpiston,
+      this.springconstant,
+      this.piston_mass,
+      this.viscosity,
+      this.pressure_diff});
+
+  double springconstant;
+  double piston_mass;
+  double viscosity;
+  double pressure_diff;
+
 }

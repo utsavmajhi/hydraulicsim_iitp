@@ -247,7 +247,7 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
                   padding: const EdgeInsets.symmetric(horizontal:18.0),
                   child: RoundedButtonSmall(title:"Graphs",colour:Colors.blue,onPressed: (){
                     //GOTO Stats page
-                    Navigator.pushNamed(context, Graph_double_cylinder.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
+                    Navigator.pushNamed(context, Graph_double_cylinder.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston,springconstant: attributes.springconstant,piston_mass: attributes.piston_mass,viscosity: attributes.viscosity,pressure_diff: attributes.pressure_diff));
                   },),
                 ),
               ],

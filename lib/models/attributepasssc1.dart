@@ -10,6 +10,11 @@ class Attributepasssc1{
   double pressureout;
   double areapiston;
   double forceonpiston;
+  double velopiston;
+  double springconstant;
+  double piston_mass;
+  double viscosity;
+  double pressure_diff;
 
   Attributepasssc1({
       this.rpm,
@@ -23,9 +28,9 @@ class Attributepasssc1{
       this.pressureout,
       this.areapiston,
       this.forceonpiston,
-      this.velopiston});
-
-  double velopiston;
-
-
+      this.velopiston,
+      this.springconstant,
+      this.piston_mass,
+      this.viscosity,
+      this.pressure_diff});
 }
