@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute:Attribute.id,
       routes:{
-
         Attribute.id:(context)=>Attribute(),
         Statistics.id:(context)=>Statistics(),
         simulationscreentest1.id:(context)=>simulationscreentest1(),

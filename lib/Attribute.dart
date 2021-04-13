@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:hydraulicsim_iitp/SimulationScreen_Single.dart';
 
-import 'SimulationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hydraulicsim_iitp/roundedbuttonsmall.dart';
@@ -442,11 +440,11 @@ class _AttributeState extends State<Attribute> {
                       double forceonpiston=(pressureout*areapiston)/1000;
                       double velopiston=flowrate/areapiston*100;
                       double velocity_fluid=(flowrate*4)/(3.14*pow(pipe_dia,2));
-                      double reynold_num=((fluid_density*velocity_fluid*pipe_dia)/fluid_viscosity);
+                      double reynold_num=((fluid_density*velocity_fluid*pipe_dia)/fluid_viscosity)*1000;
                       double friction_factor=64/reynold_num;
                       double area_rod=3.14*piston_rod_dia*piston_rod_dia/40000;
                       double headloss=(friction_factor*pipe_length*pow(velocity_fluid,2))/(2*9.81*pipe_dia);
-                      double pressure_diff=((pressureout-headloss)*areapiston)-((areapiston-area_rod)*pow(10,5));
+                      double pressure_diff=(((pressureout-headloss)*areapiston)-((areapiston-area_rod)))*pow(10,-5);
 
 
                       print(turningtorq);
@@ -455,6 +453,12 @@ class _AttributeState extends State<Attribute> {
                       print(areapiston);
                       print(forceonpiston);
                       print(velopiston);
+                      print("Reynolds num=$reynold_num");
+                      print("friction factor=$friction_factor");
+                      print("headloss=$headloss");
+                      print("Pressure Difference=$pressure_diff");
+                      print("Velocity of Fluid=$velocity_fluid");
+
                       Navigator.pushNamed(context, simulationscreentest1.id,arguments: Attributepasssc1(rpm:rpm,powerrate: Powerating,displvol: dispvol,boredia:Boredia,stroke: stroke,pressureset: pressure,turningtorq:turningtorq,flowrate:flowrate,pressureout: pressureout,areapiston: areapiston,forceonpiston: forceonpiston,velopiston: velopiston,springconstant:springconstant,viscosity:fluid_viscosity,piston_mass: piston_mass,pressure_diff:pressure_diff));
                 },
                 ),

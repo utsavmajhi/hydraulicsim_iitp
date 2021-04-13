@@ -187,7 +187,6 @@ class _simulationscreentest1State extends State<simulationscreentest1> {
                                   )),
                                 ),
                                 DropdownButton<String>(
-
                                   value: piston_selection,
                                   iconSize: 10,
                                   elevation: 16,
