@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hydraulicsim_iitp/Graph_single_cylinder.dart';
 import 'package:hydraulicsim_iitp/Statistics.dart';
 import 'package:hydraulicsim_iitp/models/attributepassc2.dart';
 import 'package:hydraulicsim_iitp/roundedbuttonsmall.dart';
@@ -194,7 +195,7 @@ class _simulationScreen_test2State extends State<simulationScreen_test2> {
                                           piston_selection=newValue;
                                           if(piston_selection=="Double Acting Cylinder"){
                                             setState(() {
-                                              Navigator.pushNamed(context, simulationscreentest1.id,arguments: Attributepasssc1(rpm:attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia:attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq:attributes.turningtorq,flowrate:attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
+                                              Navigator.pushNamed(context, simulationscreentest1.id,arguments: Attributepasssc1(rpm:attributes.rpm,powerrate:attributes.powerrate,displvol: attributes.displvol,boredia:attributes.boredia,stroke: attributes.stroke,pressureset:attributes.pressureset,turningtorq:attributes.turningtorq,flowrate:attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston,springconstant:attributes.springconstant,viscosity:attributes.viscosity,piston_mass: attributes.piston_mass,pressure_diff:attributes.pressure_diff));
                                             });
 
                                           }
@@ -244,7 +245,8 @@ class _simulationScreen_test2State extends State<simulationScreen_test2> {
                   padding: const EdgeInsets.symmetric(horizontal:18.0),
                   child: RoundedButtonSmall(title:"Graphs",colour:Colors.blue,onPressed: (){
                     //GOTO Stats page
-                    Navigator.pushNamed(context, Graph_double_cylinder.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
+                    Navigator.pushNamed(context, Graph_double_cylinder.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston,springconstant: attributes.springconstant,piston_mass: attributes.piston_mass,viscosity: attributes.viscosity,pressure_diff: attributes.pressure_diff));
+                   //Navigator.pushNamed(context, Graph_double_cylinder.id,arguments: Attributepassc2(rpm: attributes.rpm,powerrate: attributes.powerrate,displvol: attributes.displvol,boredia: attributes.boredia,stroke: attributes.stroke,pressureset: attributes.pressureset,turningtorq: attributes.turningtorq,flowrate: attributes.flowrate,pressureout: attributes.pressureout,areapiston: attributes.areapiston,forceonpiston: attributes.forceonpiston,velopiston: attributes.velopiston));
                   },),
                 ),
               ],

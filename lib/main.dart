@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hydraulicsim_iitp/Graph_single_cylinder.dart';
 import 'Attribute.dart';
 import 'Statistics.dart';
 import 'SimulationScreen_test1.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         simulationscreentest1.id:(context)=>simulationscreentest1(),
         Graph_double_cylinder.id:(context)=>Graph_double_cylinder(),
         simulationScreen_test2.id:(context) =>simulationScreen_test2(),
+        Graph_single_cylinder.id:(context) =>Graph_single_cylinder(),
 
       },
     );

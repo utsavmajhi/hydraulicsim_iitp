@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,15 +14,13 @@ import 'package:draw_graph/draw_graph.dart';
 import 'package:draw_graph/models/feature.dart';
 import 'piston_position_time_cal.dart';
 
-import 'package:fl_chart/fl_chart.dart';
-class Graph_double_cylinder extends StatefulWidget {
-  static String id='Graph_double_cylinder';
+class Graph_single_cylinder extends StatefulWidget {
+  static String id='Graph_single_cylinder';
   @override
-  _Graph_double_cylinderState createState() => _Graph_double_cylinderState();
+  _Graph_single_cylinderState createState() => _Graph_single_cylinderState();
 }
 
-class _Graph_double_cylinderState extends State<Graph_double_cylinder> {
-
+class _Graph_single_cylinderState extends State<Graph_single_cylinder> {
   List<double> piston_pos_yaxis=[];
   double highpos=9,highvel=9;
   List<double> piston_pos_xaxis=[];
@@ -35,13 +33,12 @@ class _Graph_double_cylinderState extends State<Graph_double_cylinder> {
     // TODO: implement initState
     super.initState();
     //OBJECT CREATION
-
     Future.delayed(Duration.zero,(){
-      Attributepassc2 attributes=ModalRoute.of(context).settings.arguments;
-      piston_position_time_cal obj=new piston_position_time_cal();
-      piston_pos_yaxis=obj.piston_pos(attributes.springconstant,attributes.piston_mass,attributes.viscosity,attributes.pressure_diff);
 
-      piston_vel_yaxis=obj.velocity_grp(attributes.springconstant,attributes.piston_mass,attributes.viscosity,attributes.pressure_diff);
+      Attributepassc2 attributes=ModalRoute.of(context).settings.arguments;
+      piston_position_time_cal obj2=new piston_position_time_cal();
+      piston_pos_yaxis=obj2.piston_pos_single(attributes.springconstant,attributes.piston_mass,attributes.viscosity,attributes.pressure_diff);
+      piston_vel_yaxis=obj2.velocity_grp_single(attributes.springconstant,attributes.piston_mass,attributes.viscosity,attributes.pressure_diff);
 
       double t=0;
       for(int i=0;i<piston_pos_yaxis.length;i++){
@@ -66,6 +63,10 @@ class _Graph_double_cylinderState extends State<Graph_double_cylinder> {
       setState(() {
 
       });
+    }).then((value) {
+      setState(() {
+
+      });
     });
 
 
@@ -83,78 +84,70 @@ class _Graph_double_cylinderState extends State<Graph_double_cylinder> {
   Widget build(BuildContext context) {
 
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon:Icon(Icons.arrow_back),
-            onPressed: (){
-              Navigator.pop(context);
-            },
+        child: Scaffold(
+          backgroundColor: Colors.black12,
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Graphical Analysis",style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25
+                ),),
+              ),
+              Column(
+                children: <Widget>[
+                  AspectRatio(
+                    aspectRatio: 1.70,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(18),
+                          ),
+                          color: Color(0xff232d37)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
+                        child: LineChart(
+                          mainData(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text("Piston Position v/s Time",style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                  ),),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  AspectRatio(
+                    aspectRatio: 1.70,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(18),
+                          ),
+                          color: Color(0xff232d37)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
+                        child: LineChart(
+                          mainData_velocity(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text("Piston Velocity v/s Time",style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                  ),),
+                ],
+              ),
+            ],
           ),
-        ),
-        backgroundColor: Colors.black12,
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Graphical Analysis",style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 25
-              ),),
-            ),
-            Column(
-              children: <Widget>[
-                AspectRatio(
-                  aspectRatio: 1.70,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(18),
-                        ),
-                        color: Color(0xff232d37)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
-                      child: LineChart(
-                        mainData(),
-                      ),
-                    ),
-                  ),
-                ),
-                Text("Piston Position v/s Time",style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18
-                ),),
-                SizedBox(
-                  height: 40,
-                ),
-                AspectRatio(
-                  aspectRatio: 1.70,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(18),
-                        ),
-                        color: Color(0xff232d37)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
-                      child: LineChart(
-                        mainData_velocity(),
-                      ),
-                    ),
-                  ),
-                ),
-                Text("Piston Velocity v/s Time",style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18
-                ),),
-              ],
-            ),
-          ],
-        ),
-      )
+        )
     );
   }
   LineChartData mainData() {
